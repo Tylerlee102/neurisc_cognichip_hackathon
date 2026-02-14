@@ -1,0 +1,12 @@
+# Synthesis Directory
+
+This directory contains synthesis scripts and constraints for the NeuroRISC Accelerator.
+
+## Structure (Planned)
+
+- Synthesis scripts (DC, Genus, Yosys)
+- Timing constraints (SDC files)
+- Area and power optimization scripts
+- Technology-specific configurations
+- Synthesis reports and logs
+- FPGA implementation scripts
