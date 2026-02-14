@@ -1,0 +1,13 @@
+# Documentation Directory
+
+This directory contains documentation and specifications for the NeuroRISC Accelerator.
+
+## Structure (Planned)
+
+- Architecture specification
+- Microarchitecture documentation
+- Programming guide and API reference
+- Verification plan
+- Integration guide
+- Performance analysis reports
+- Design decision records
