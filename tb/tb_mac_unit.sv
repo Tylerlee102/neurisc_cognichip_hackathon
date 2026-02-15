@@ -274,7 +274,7 @@ module tb_mac_unit;
     
     // Waveform dump
     initial begin
-        $dumpfile("dumpfile.fst");
+        $dumpfile("mac_unit.fst");
         $dumpvars(0, tb_mac_unit);
     end
     

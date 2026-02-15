@@ -768,7 +768,7 @@ module tb_neurisc_soc_comprehensive;
     
     // Waveform dump
     initial begin
-        $dumpfile("dumpfile.fst");
+        $dumpfile("soc_comprehensive.fst");
         $dumpvars(0);
     end
     
