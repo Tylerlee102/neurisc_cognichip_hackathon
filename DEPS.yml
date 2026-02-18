@@ -1,0 +1,42 @@
+# =============================================================================
+# Root DEPS.yml - NeuroRISC MAC Unit Performance Testing
+# =============================================================================
+
+# MAC Unit Performance Test (2-stage pipeline + INT4/INT8 modes)
+test_mac_performance:
+  deps:
+    - rtl/mac_unit.sv
+    - tb/tb_mac_performance.sv
+  top: tb_mac_performance
+
+# MAC Unit Basic Test (backward compatibility)
+test_mac_unit:
+  deps:
+    - rtl/mac_unit.sv
+    - tb/tb_mac_unit.sv
+  top: tb_mac_unit
+
+# Pooling Unit Test (2x2 max pooling for MobileNet)
+test_pooling_unit:
+  deps:
+    - rtl/pooling_unit.sv
+    - tb/tb_pooling_unit.sv
+  top: tb_pooling_unit
+
+# MNIST Efficiency Test (Performance benchmark)
+test_mnist_efficiency:
+  deps:
+    - rtl/mac_unit.sv
+    - rtl/systolic_array.sv
+    - rtl/activation_unit.sv
+    - tb/tb_mnist_efficiency.sv
+  top: tb_mnist_efficiency
+
+# MobileNet Efficiency Test (Performance benchmark)
+test_mobilenet_efficiency:
+  deps:
+    - rtl/mac_unit.sv
+    - rtl/systolic_array.sv
+    - rtl/activation_unit.sv
+    - tb/tb_mobilenet_efficiency.sv
+  top: tb_mobilenet_efficiency
