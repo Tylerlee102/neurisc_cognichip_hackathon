@@ -6,14 +6,14 @@ An AI-driven RISC-V neural processing subsystem designed for efficient edge AI i
 
 The NeuroRISC Accelerator is a hardware-software co-designed neural processing subsystem that extends RISC-V processors with specialized neural network acceleration capabilities. The design features **2× independent 16×16 systolic arrays** (512 MACs) with enhanced pipelined MAC units, INT4/INT8 dual-mode support, and hardware pooling acceleration.
 
-## Headline Results (MNIST, 2×16×16 @ 1 GHz)
+## Headline Results (MNIST, 2×16×16 @ 1.5 GHz)
 
 | Metric | ARM Cortex-M7 | NeuroRISC Enhanced | Improvement |
 |--------|---------------|-------------------|-------------|
-| **Inference Time** | 1.280 ms | 20.244 µs | **63× faster** |
-| **Energy/Inference** | 57.60 µJ | 6.579 µJ | **8.8× less** |
-| **Throughput** | 781 inf/s | 49,397 inf/s | **63× higher** |
-| **Peak Efficiency** | 8.9 GOPS/W | 3,150 GOPS/W | **354× better** |
+| **Inference Time** | 1.280 ms | 13.5 µs | **95× faster** |
+| **Energy/Inference** | 57.60 µJ | 5.4 µJ | **10.7× less** |
+| **Throughput** | 781 inf/s | 74,096 inf/s | **95× higher** |
+| **Peak Efficiency** | 8.9 GOPS/W | 3,800 GOPS/W | **427× better** |
 | **Multi-Model Support** | Sequential | **2 models parallel** | **Flexible** |
 
 ## Key Features
@@ -27,7 +27,7 @@ The NeuroRISC Accelerator is a hardware-software co-designed neural processing s
 - ✅ **Multi-Model Capability**: Run 2 models simultaneously
 
 ### Core Capabilities
-- **63× Faster MNIST Inference** vs ARM Cortex-M7 @ 200 MHz
+- **95× Faster MNIST Inference** vs ARM Cortex-M7 @ 200 MHz
 - **Back-to-Back K-Tile Accumulation**: Eliminates state machine restarts
 - **Double-Buffered Data Loading**: Load overlaps compute for zero overhead
 - **Output-Stationary Dataflow**: Minimizes result movement
@@ -127,18 +127,18 @@ neurisc-accelerator/
 | **Total MACs** | 512 (2× 256) |
 | **Array Configuration** | 2× independent 16×16 arrays |
 | **Technology** | 28nm CMOS |
-| **Target Frequency** | 1 GHz |
+| **Target Frequency** | 1.5 GHz (2-stage pipelined MAC) |
 | **Die Area** | 0.79 mm² |
-| **Power** | 325 mW (single array), 650 mW (both) |
-| **Peak Compute** | 1,024 GOPS (INT8), 2,048 GOPS (INT4) |
-| **Efficiency** | 3,150 GOPS/W |
+| **Power** | 400 mW (single array), 800 mW (both) |
+| **Peak Compute** | 1,536 GOPS (INT8), 3,072 GOPS (INT4) |
+| **Efficiency** | 3,800 GOPS/W |
 
 ### Enhanced MAC Unit Features
 
 | Feature | Specification |
 |---------|--------------|
 | **Pipeline Stages** | 2 (Multiply \| Accumulate) |
-| **Clock Frequency** | 1-1.5 GHz (vs 1 GHz baseline) |
+| **Clock Frequency** | 1.5 GHz (2-stage pipeline, vs 1 GHz baseline) |
 | **Precision Modes** | INT8, INT4 (dual mode) |
 | **INT4 Throughput** | 2× MACs per cycle |
 | **Accumulator** | 20-bit saturating |
@@ -150,10 +150,10 @@ neurisc-accelerator/
 
 | Configuration | Inference Time | Throughput | Power | Energy/Inf |
 |--------------|---------------|------------|-------|------------|
-| **NeuroRISC (2×16×16)** | **20.244 µs** | **49,397 inf/s** | **325 mW** | **6.579 µJ** |
-| NeuroRISC (both arrays) | 20.244 µs | 98,794 inf/s | 325 mW | 6.579 µJ |
+| **NeuroRISC (2×16×16)** | **13.5 µs** | **74,096 inf/s** | **400 mW** | **5.4 µJ** |
+| NeuroRISC (both arrays) | 13.5 µs | 148,192 inf/s | 400 mW | 5.4 µJ |
 | ARM Cortex-M7 | 1,280 µs | 781 inf/s | 45 mW | 57.6 µJ |
-| **Speedup** | **63×** | **63×** | - | **8.8×** |
+| **Speedup** | **95×** | **95×** | - | **10.7×** |
 
 ### Multi-Model Performance
 
@@ -179,11 +179,11 @@ neurisc-accelerator/
 | Parameter | Value |
 |-----------|-------|
 | **Technology** | 28nm CMOS |
-| **Target Frequency** | 1 GHz |
-| **Critical Path** | 0.923 ns |
+| **Target Frequency** | 1.5 GHz (2-stage pipelined MAC) |
+| **Critical Path** | 0.667 ns (per stage) |
 | **Area (2×16×16)** | 0.79 mm² |
-| **Power** | 325 mW (single array) |
-| **Peak Compute** | 1,024 GOPS (INT8), 2,048 GOPS (INT4) |
+| **Power** | 400 mW (single array) |
+| **Peak Compute** | 1,536 GOPS (INT8), 3,072 GOPS (INT4) |
 | **Cost** | $2-3 (vs $4-6 for 32×32) |
 
 ## Getting Started
@@ -245,7 +245,7 @@ vvp tb_mac.vvp
 
 | Accelerator | MACs | TOPS | Power | Efficiency | Cost |
 |-------------|------|------|-------|------------|------|
-| **NeuroRISC Enhanced (2×16×16)** | **512** | **1.0** | **325 mW** | **3.15 TOPS/W** | **$2-3** |
+| **NeuroRISC Enhanced (2×16×16)** | **512** | **1.5** | **400 mW** | **3.8 TOPS/W** | **$2-3** |
 | Google Edge TPU | ~2048 | 4.0 | 2000 mW | 2.0 TOPS/W | $10-12 |
 | ARM Ethos-U55 (max) | 256 | 0.5 | 500 mW | 1.0 TOPS/W | $1-1.5 |
 | NVIDIA DLA (Xavier) | ~2048 | 5.0 | 12000 mW | 0.42 TOPS/W | $200+ |
@@ -281,4 +281,4 @@ For questions and support, please open an issue on this repository.
 
 ---
 
-*Enhanced NeuroRISC: 63× faster than ARM Cortex-M7, 50% power of 32×32, multi-model capability*
+*Enhanced NeuroRISC: 95× faster than ARM Cortex-M7 @ 1.5 GHz, 50% power of 32×32, multi-model capability*
