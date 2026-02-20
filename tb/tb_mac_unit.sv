@@ -17,22 +17,25 @@ module tb_mac_unit;
     logic signed [7:0]  weight_out;
     logic signed [7:0]  input_out;
     logic signed [19:0] accumulator;
+    logic        valid_out;
     
     // Test variables
     int error_count;
     logic signed [19:0] expected_acc;
     
-    // DUT instantiation
+    // DUT instantiation (INT8 mode only for backward compatibility)
     mac_unit dut (
         .clock(clock),
         .reset(reset),
         .enable(enable),
         .clear_acc(clear_acc),
+        .i_int4_mode(1'b0),        // INT8 mode
         .weight_in(weight_in),
         .input_in(input_in),
         .weight_out(weight_out),
         .input_out(input_out),
-        .accumulator(accumulator)
+        .accumulator(accumulator),
+        .valid_out(valid_out)
     );
     
     // Clock generation (10ns period = 100MHz)
@@ -69,10 +72,11 @@ module tb_mac_unit;
     endtask
     
     // =========================================================================
-    // Task: Wait and read result (1 cycle for output register)
+    // Task: Wait and read result (2 cycles for pipelined design)
     // =========================================================================
     task automatic wait_result();
-        @(posedge clock);       // Wait for result to propagate
+        @(posedge clock);       // Pipeline stage 1
+        @(posedge clock);       // Pipeline stage 2
     endtask
 
     // Test sequence

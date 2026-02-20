@@ -14,6 +14,13 @@ test_mac_unit:
     - tb_mac_unit.sv
   top: tb_mac_unit
 
+# Unit Test: MAC Unit Performance (Pipeline + INT4 testing)
+test_mac_performance:
+  deps:
+    - ../rtl/mac_unit.sv
+    - tb_mac_performance.sv
+  top: tb_mac_performance
+
 # Unit Test: MAC Unit (UVM version)
 test_mac_unit_uvm:
   deps:
